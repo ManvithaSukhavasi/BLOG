@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.conf import settings
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 
 
 
@@ -26,27 +26,14 @@ def blogs(request):
     return render(request, "blogapp/blog.html", {'posts':posts})
 
 
-# def edit_profile(request):
-#     try:
-#         request.user.profile
-#     except ObjectDoesNotExist:
-#         profile = Profile(user=request.user)
-#     if request.method=="POST":
-#         form = ProfileForm(data=request.POST, files=request.FILES, instance=profile)
-#         if form.is_valid():
-#             form.save()
-#             alert = True
-#             return render(request, "blogapp/editprofile.html", {'alert':alert})
-#     else:
-#         form=ProfileForm(instance=profile)
-#     return render(request, "blogapp/editprofile.html", {'form':form})
+
 
 
 def edit_profile(request):
-    # try:
-    #     profile = request.user.profile
-    # except Profile.DoesNotExist:
-    #     profile = Profile(user=request.user)
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        profile = Profile(user=request.user)
     if request.method=="POST":
         form = ProfileForm(data=request.POST, files=request.FILES)
         if form.is_valid():
@@ -60,20 +47,7 @@ def edit_profile(request):
 
 
 
-# def edit_profile(request):
-#     try:
-#         request.user.profile
-#     except ObjectDoesNotExist:
-#         Profile(user=request.user)
-#     if request.method=="POST":
-#         form = ProfileForm(data=request.POST, files=request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             alert = True
-#             return render(request, "blogapp/editprofile.html", {'alert':alert})
-#     else:
-#         form=ProfileForm()
-#     return render(request, "blogapp/editprofile.html", {'form':form})
+
 
 
 
